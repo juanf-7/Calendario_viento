@@ -276,13 +276,34 @@ dias.forEach((dia,index)=>{
 
 function abrirDia(index){
 
+    const ahora = new Date();
+
+    const fechaApertura = new Date(
+        dias[index].fecha
+    );
+
     document.getElementById("titulo").innerText =
-    dias[index].titulo;
+        dias[index].titulo;
 
-    document.getElementById("contenido").innerHTML =
-    dias[index].texto;
+    if(ahora < fechaApertura){
 
-    document.getElementById("modal").style.display="flex";
+        document.getElementById("contenido").innerHTML =
+        `
+        <h3>🔒 Regalo bloqueado</h3>
+        <p>
+        Este regalo estará disponible el
+        <strong>${fechaApertura.toLocaleString()}</strong>
+        </p>
+        `;
+
+    }else{
+
+        document.getElementById("contenido").innerHTML =
+        dias[index].texto;
+
+    }
+
+    document.getElementById("modal").style.display = "flex";
 }
 
 function cerrarModal(){

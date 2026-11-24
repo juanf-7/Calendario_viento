@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>24 días contigo ❤️</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg,#ff758c,#ff7eb3);
+    min-height:100vh;
+    padding:30px;
+    color:white;
+}
+
+h1{
+    text-align:center;
+    margin-bottom:10px;
+}
+
+.subtitulo{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
+    gap:15px;
+    max-width:1000px;
+    margin:auto;
+}
+
+.card{
+    background:white;
+    color:#ff4f81;
+    border-radius:16px;
+    height:120px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:28px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
+    box-shadow:0 5px 15px rgba(0,0,0,0.2);
+}
+
+.card:hover{
+    transform:scale(1.05);
+}
+
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.7);
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+.modal-content{
+    background:white;
+    color:#333;
+    max-width:600px;
+    width:100%;
+    border-radius:20px;
+    padding:25px;
+    text-align:center;
+}
+
+.modal-content h2{
+    color:#ff4f81;
+    margin-bottom:15px;
+}
+
+.cerrar{
+    margin-top:20px;
+    padding:10px 20px;
+    border:none;
+    border-radius:10px;
+    background:#ff4f81;
+    color:white;
+    cursor:pointer;
+}
+
+.mensaje{
+    line-height:1.6;
+}
+</style>
+</head>
+
+<body>
+
+<h1>❤️ 27 DÍAS PARA ENAMORARTE ❤️</h1>
+
+<p class="subtitulo">
+Es el plan maestro que tengo para demostrarte que puedo aprender a hacerte sentir amada  en la forma en que lo mereces.
+</p>
+
+<div class="grid" id="grid"></div>
+
+<div class="modal" id="modal">
+    <div class="modal-content">
+        <h2 id="titulo"></h2>
+        <div class="mensaje" id="contenido"></div>
+        <button class="cerrar" onclick="cerrarModal()">Cerrar ❤️</button>
+    </div>
+</div>
+
+<script>
+
+/*
+=================================================
+CAMBIA AQUÍ TODO EL CONTENIDO DEL CALENDARIO
+=================================================
+
+texto:
+Mensaje que verá ella.
+
+imagen:
+Puedes poner una URL.
+
+audio:
+Puedes poner una URL.
+
+youtube:
+Puedes poner un enlace.
+
+Si no quieres usar alguno,
+déjalo vacío.
+*/
+
+const dias = [
+
+{
+titulo:"Día 1",
+texto:"Hoy empieza esta ruta de 27 días. Quiero que cada uno de estos días te recuerde que pienso en ti incluso cuando estamos lejos."
+},
+
+{
+titulo:"Día 2",
+texto:"Una de mis partes favoritas del día es cuando hablo contigo."
+},
+
+{
+titulo:"Día 3",
+texto:"Gracias por existir."
+},
+
+{
+titulo:"Día 4",
+texto:"Si pudiera elegir dónde estar ahora mismo, elegiría estar contigo."
+},
+
+{
+titulo:"Día 5",
+texto:"Eres una de las razones por las que sonrío más."
+},
+
+{
+titulo:"Día 6",
+texto:"Te amo más de lo que estas palabras pueden explicar."
+},
+
+{
+titulo:"Día 7",
+texto:"Recuerda algo importante: no estás sola."
+},
+
+{
+titulo:"Día 8",
+texto:"Tu voz tiene el extraño poder de mejorar mis días."
+},
+
+{
+titulo:"Día 9",
+texto:"Gracias por cada momento compartido."
+},
+
+{
+titulo:"Día 10",
+texto:"Amo la forma en que ves el mundo."
+},
+
+{
+titulo:"Día 11",
+texto:"Este bolsillo está reservado para una foto especial."
+},
+
+{
+titulo:"Día 12",
+texto:"Mitad del camino ❤️"
+},
+
+{
+titulo:"Día 13",
+texto:"Tengo muchos sueños y me gusta imaginarte dentro de ellos."
+},
+
+{
+titulo:"Día 14",
+texto:"Hoy el mensaje es simple: te extraño."
+},
+
+{
+titulo:"Día 15",
+texto:"No importa la distancia, sigues siendo mi persona favorita."
+},
+
+{
+titulo:"Día 16",
+texto:"Tu felicidad me importa muchísimo."
+},
+
+{
+titulo:"Día 17",
+texto:"Eres increíble incluso los días en los que no lo ves."
+},
+
+{
+titulo:"Día 18",
+texto:"Gracias por confiar en mí."
+},
+
+{
+titulo:"Día 19",
+texto:"Cada conversación contigo vale la pena."
+},
+
+{
+titulo:"Día 20",
+texto:"Ojalá pudiera darte un abrazo justo ahora."
+},
+
+{
+titulo:"Día 21",
+texto:"Me encanta imaginar todo lo que nos espera."
+},
+
+{
+titulo:"Día 22",
+texto:"Prometo seguir eligiéndote cada día."
+},
+
+{
+titulo:"Día 23",
+texto:"Gracias por este año, por la paciencia y el amor."
+},
+
+{
+titulo:"Día 24",
+texto:"Si llegaste hasta aquí, quiero que sepas algo: eres una persona maravillosa y me siento afortunado de compartir mi vida contigo. Te amo ❤️"
+}
+
+];
+
+const grid = document.getElementById("grid");
+
+dias.forEach((dia,index)=>{
+    const card = document.createElement("div");
+    card.className="card";
+    card.innerText=index+1;
+    card.onclick=()=>abrirDia(index);
+    grid.appendChild(card);
+});
+
+function abrirDia(index){
+
+    document.getElementById("titulo").innerText =
+    dias[index].titulo;
+
+    document.getElementById("contenido").innerHTML =
+    dias[index].texto;
+
+    document.getElementById("modal").style.display="flex";
+}
+
+function cerrarModal(){
+    document.getElementById("modal").style.display="none";
+}
+</script>
+
+</body>
+</html>
